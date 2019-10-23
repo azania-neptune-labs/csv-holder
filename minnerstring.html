@@ -1,0 +1,54 @@
+<html>
+<head>
+	<title>admin</title>
+	<style type="text/css">
+		output {
+    display: block;
+    margin-top: 4em;
+    font-family: monospace;
+    font-size: .8em;
+}
+	</style>
+</head>
+<body>
+<p>Select local CSV File:</p>
+<input id="csv" type="file">
+    
+<output id="out">
+    file contents will appear here
+</output>
+<script type="text/javascript">
+	var fileInput = document.getElementById("csv"),
+
+    readFile = function () {
+        var reader = new FileReader();
+        reader.onload = function () {
+            document.getElementById('out').innerHTML = reader.result;
+        };
+        // start reading the file. When it is done, calls the onload event defined above.
+        reader.readAsBinaryString(fileInput.files[0]);
+    };
+
+fileInput.addEventListener('change', readFile);
+
+(function() {
+   	var elm1 = document.getElementById('state'),
+    df1 = document.createDocumentFragment();
+    var a = document.getElementById('out');
+	var b=JSON.stringify(a);
+	var array= JSON.parse(b);
+	for(var j=0;j<array.length;j++)
+	{
+	var option = document.createElement('option');
+    option.value = array[j];
+	option.appendChild(document.createTextNode(array[j]));
+        df1.appendChild(option);
+	}
+	 elm1.appendChild(df1);
+ 
+	
+}());
+
+</script>
+</body>
+</html>
